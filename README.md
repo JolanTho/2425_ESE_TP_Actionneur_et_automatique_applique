@@ -16,3 +16,4 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
 
 
 ## Mesure de vitesse
+ Le conposant qui sert à mesurer la vitesse est le MAX3097E. 
