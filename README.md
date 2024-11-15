@@ -13,4 +13,6 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
 3) La pins correspondant à la mesure du courant pour la phase U est la pin 27 (PA0) du connecteur J103.
    La pin correspondant à la musre du courant consommé par la phase V est la pin 23 (PB1) du connecteur J104.
    La pin correspondant à la mesure du courant fournit par l'alimentation est la pin 29 (PA1) du connecteur J103.
-   
+
+
+## Mesure de vitesse
