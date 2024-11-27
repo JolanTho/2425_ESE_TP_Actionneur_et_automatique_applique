@@ -1,7 +1,8 @@
 # 2425_ESE_TP_Actionneur_et_automatique_applique
 
 # TP1
-
+Lors de ce TP nous devons générer une PWM sur le pont U et V pour pouvoir controler le hacheur lié au moteur. 
+Nous prenons une PWM de fréquence 02kHz et nous définissons un temps mort de 100ns pour éviter tout court circuit.
 # TP2
 ## Mesure du courant
 
