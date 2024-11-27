@@ -1,0 +1,3 @@
+../Core/Src/mylibs/pwm.c:6:6:pwm_start	8	static
+../Core/Src/mylibs/pwm.c:20:6:pwm_stop	8	static
+../Core/Src/mylibs/pwm.c:43:6:set_pwm_alpha	32	static
