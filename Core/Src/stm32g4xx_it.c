@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "mylibs/pwm.h"
 #include "mylibs/codeur.h"
+#include "mylibs/pid_controller.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,7 +45,13 @@
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
 extern int dt; //mesure de la vitesse toutes les 500ms
+extern float vitesse[];
+extern int consigne;
 int idx; //nombre de ms
+float deltaTime = 0.01f;
+extern float NewAlpha;
+
+extern PIDController pid;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -272,6 +279,9 @@ void TIM1_UP_TIM16_IRQHandler(void)
   }
 
   idx++;
+
+  NewAlpha = pid_compute(&pid, (float) consigne,(float)vitesse[0], deltaTime);
+
   /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
 }
 

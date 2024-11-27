@@ -11,6 +11,7 @@
 "./Core/Src/tim.o"
 "./Core/Src/usart.o"
 "./Core/Src/mylibs/codeur.o"
+"./Core/Src/mylibs/pid_controller.o"
 "./Core/Src/mylibs/pwm.o"
 "./Core/Src/mylibs/shell.o"
 "./Core/Startup/startup_stm32g474retx.o"

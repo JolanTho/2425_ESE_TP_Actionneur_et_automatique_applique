@@ -29,6 +29,7 @@
 #include "mylibs/shell.h"
 #include "mylibs/pwm.h"
 #include "mylibs/codeur.h"
+#include "mylibs/pid_controller.h"
 #include <stdio.h>
 #include <stdint.h>
 /* USER CODE END Includes */
@@ -51,9 +52,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint16_t value_adc1[2];
-uint16_t value_adc2;
-uint32_t cpt = 0;
+uint32_t value_adc1[2]; // Buffer courant adc1
+uint32_t value_adc2; // Buffer Courant adc2
+
+PIDController pid;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -110,13 +112,17 @@ int main(void)
 	pwm_start(); // Depart des pwm
 	codeur_start(); // Depart de l'encodeur
 
-	HAL_TIM_Base_Start_IT(&htim16);
+	pid = pid_init(0.48,0.247,0.23);
+
+	HAL_TIM_Base_Start_IT(&htim16); // Demarrage du TImer pour cadencer les valeurs de vitesse
+
+	// valeures de l'asserv
 
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
-	HAL_ADC_Start_DMA(&hadc1,(uint16_t*)&value_adc1,2);
+	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&value_adc1,2);
 
 	HAL_ADCEx_Calibration_Start(&hadc2, ADC_SINGLE_ENDED);
-	HAL_ADC_Start_DMA(&hadc2,(uint16_t*)&value_adc2,1);
+	HAL_ADC_Start_DMA(&hadc2,(uint32_t*)&value_adc2,1);
 
   /* USER CODE END 2 */
 

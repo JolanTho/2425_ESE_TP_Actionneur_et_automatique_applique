@@ -29,6 +29,9 @@ uint8_t uartTxBuffer[UART_TX_BUFFER_SIZE];
 extern uint16_t value_adc1[];
 extern uint16_t value_adc2;
 extern float vitesse[];
+int consigne =0;
+float NewAlpha = 0.0;
+
 
 char	 	cmdBuffer[CMD_BUFFER_SIZE];
 int 		idx_cmd;
@@ -99,6 +102,10 @@ void Shell_Loop(void){
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
 			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "vitesse : Recupere la valeure de vitesse\r\n");
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
+			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "asserv : Choisit une valeure de tr/min\r\n");
+			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
+			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "asservPrint : Print la valeure d'alpha calculée par asserv\r\n");
+			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
 		}
 		else if(strcmp(argv[0],"speed")==0){
 			if(atoi(argv[1])>=0){
@@ -120,6 +127,22 @@ void Shell_Loop(void){
 		}else if(strcmp(argv[0],"speedStop")==0){
 			pwm_stop();
 
+		}else if(strcmp(argv[0], "asservPrint")==0){
+
+			int uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Nouvelle alpha = %d\r\n",(int)NewAlpha);
+			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
+
+		}else if(strcmp(argv[0],"asserv")==0){//Fonction permettant de lancer l'asservissement
+			if((atoi(argv[1])>=-3000) & (atoi(argv[1])<=3000)){
+				consigne = atoi(argv[1]);
+				int uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Nouvelle consigne = %d\r\n",atoi(argv[1]));
+				HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
+			}
+			else{//Sécuritée permettant de ne pas avoir une vitesse inatteignable
+				int uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Erreur consigne doit être comprise entre + ou - 3000 tour/min\r\n");
+				HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
+			}
+
 		}else if(strcmp(argv[0],"vitesse")==0){//Fonction permettant d'éteindre les PWM
 
 			int uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Vitesse : %d\r\n",(int)vitesse[0]);
@@ -128,13 +151,17 @@ void Shell_Loop(void){
 
 		}else if(strcmp(argv[0],"adcValue")==0){
 
-			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur Source: %d \r\n", value_adc1[0]);
+			float adc1 = ((((float)value_adc1[0]/4095.0)*3.3)-1.65)/0.05;
+			float adc2 = ((((float)value_adc1[1]/4095)*3.3)-1.65)/0.05;
+			float adc3 = ((((float)value_adc2/4095)*3.3)-1.65)/0.05;
+
+			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur Source: %f \r\n", adc1);
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
 
-			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur V: %d \r\n", value_adc1[1]);
+			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur V: %f \r\n", adc2);
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
 
-			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur de U: %d \r\n", value_adc2);
+			uartTxStringLength = snprintf((char *)uartTxBuffer, UART_TX_BUFFER_SIZE, "Valeur de U: %f \r\n", adc3);
 			HAL_UART_Transmit(&huart2, uartTxBuffer, uartTxStringLength, HAL_MAX_DELAY);
 
 		}
