@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */
 #include "mylibs/shell.h"
 #include "mylibs/pwm.h"
+#include "mylibs/codeur.h"
 #include <stdio.h>
 #include <stdint.h>
 /* USER CODE END Includes */
@@ -102,10 +103,14 @@ int main(void)
   MX_TIM3_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
-	Shell_Init();
+	Shell_Init(); // init du shell
 
-	pwm_start();
+	pwm_start(); // Depart des pwm
+	codeur_start(); // Depart de l'encodeur
+
+	HAL_TIM_Base_Start_IT(&htim16);
 
 	HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
 	HAL_ADC_Start_DMA(&hadc1,(uint16_t*)&value_adc1,2);
@@ -176,8 +181,8 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
-	cpt = (cpt + 1)%20000;
-	if(cpt == 0) HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
+//	cpt = (cpt + 1)%20000;
+//	if(cpt == 0) HAL_GPIO_TogglePin(USR_LED_GPIO_Port, USR_LED_Pin);
 }
 
 /* USER CODE END 4 */
