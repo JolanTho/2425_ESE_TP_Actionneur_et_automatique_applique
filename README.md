@@ -25,6 +25,12 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
    La pin correspondant à la musre du courant consommé par la phase V est la pin 23 (PB1) du connecteur J104.
    La pin correspondant à la mesure du courant fournit par l'alimentation est la pin 29 (PC2) du connecteur J103.
 
+Pour pouvoir convertir la valeur reçu par l'ADC en valeur de courant se trouvant dans le moteur nous utilisons la formule suivante : $\frac{Valeur ADC} {résolution}*U_{ref}$
+Ici, la résolution de l'ADC est de 4096 et $U_{ref}$ vaut 3.3V.
+
+On récupère ensuite cette cette valeure pour la comparé à un offset valant $1.65$ et on divise le tout par la sensibilité du capteur qui est de 50mV par Ampère.
+ce qui nous donne comme équation 
+
 
 ## Mesure de vitesse
  Le conposant qui sert à mesurer la vitesse est le MAX3097E. 
