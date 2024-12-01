@@ -2,11 +2,13 @@
 
 # TP1
 Lors de ce TP nous devons générer une PWM en complémentaire décalé sur le pont U et V pour pouvoir controler le hacheur lié au moteur. 
-Nous prenons une PWM de fréquence 20kHz et nous définissons un temps mort de 100ns pour éviter tout court circuit.
+Nous prenons une PWM de fréquence 20kHz à l'aide de la formule suivante :   
+Nous définissons un temps mort de 100ns pour éviter tout court circuit. Ce temps mort a été définit avec la formule et une petite marge : 
 
 Après avoir générer la PWM nous utiisons un shell en liaison UART pour pouvoir changer la vitesse du moteur. Nous avons créer la fonction "Speed XXX" qui permet de récupérer la valuer de "XXX" et ainsi changer le rapport cyclique de la PWM.
 Après quelques testes en faisant bien attention à limitér le courant fournit par l'alimentation, nous avons observé lors du changement de consigne que le moteur changeait de vitesse très rapidement ce qui peut engendrer des courants très important dans le moteur et la carte et ainsi cramer la carte de commande. 
-Nous avons donc décidé d'envoyer la consigne du moteur via une rampe. C'est à dire que lorsqu'une nouvelle commande et envoyée, nous faisons en sorte que le moteur chnage de vitesse progressivement.
+Nous avons donc décidé d'envoyer la consigne du moteur via une rampe. C'est à dire que lorsqu'une nouvelle commande et envoyée, nous faisons en sorte que le moteur change de vitesse progressivement. Ceci permet d'eviter les variations brupte de courant pouvant entrainer le décés des condensateurs. 
+
 # TP2
 
 Dans cette partie nous devons commander en boucle ouverte le moteur et établir une mesure du courant et de la vitesse pour pouvoir dans un deuxième temps effectuer un asservissement du moteur.
@@ -36,8 +38,23 @@ En prenant R comme résultat de l'équation précédante on obtion : $\frac{R-1.
 ## Mesure de vitesse
  Le conposant qui sert à mesurer la vitesse est le MAX3097E. 
  L'information sur la vitesse est récupéré via la sonde tachimétrique du moteur, puis transmis à la carte via un bus CAN. Le signal passe ensuite dans le composant MAX3097E pour ensuite être envoyé dans le microprocesseur sur les pins PA6 (encodeur A), PA4 (encoder B) et PC8 (encodeur Z). 
- Nous avons ensuite créé une fonction appelé "vitesse" permetant de récupérer la valeure récupéré par le microproceesseur. 
+ Nous avons ensuite créé une fonction appelé "vitesse" permetant de récupérer la valeure récupéré par le microproceesseur.  
+
+## PID  
+Une tentative de PID a été faite afin d'asservir avec la vitesse car les mesures de courant n'ont pas été complètes. Malheureusement nous avons manqué de temps pour terminer correctement le PID.  
 
  <p align="center"><img src="https://github.com/JolanTho/2425_ESE_TP_Actionneur_et_automatique_applique/blob/main/Photo_TP/fonction_vitesse_shell.jpg" width="600" /> </p> 
 
 Nous pouvons remarqué que la valeur de la vitesse renvoyé par le moteur est comprise entre -200 et +200 et nous avons bien une valeure de vitesse à 0 pour **alpha=50** quand le moteur est à l'arret. Malheuresement nous n'avons pas réussis à faire la conversion en tour par minute à partir de la donné renvoyé par le moteur par manque de temps. 
+
+## Bilan des fonctions 
+![TIP]
+> help : Donne les fonctions disponibles
+> WhereisBrian? : dit ou se situe Brian
+> speed XXX : Set la speed
+> speedStart : Start les PWM
+> speedStop : Stop les PWM
+> adcValue : Recupere la valeure de l'adc
+> vitesse : Recupere la valeure de vitesse
+> asserv : Choisit une valeure de tr/min
+> asservPrint : Print la valeure d'alpha calculée par asserv (utilisé pour le débug)
