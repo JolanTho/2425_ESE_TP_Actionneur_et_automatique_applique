@@ -26,10 +26,11 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
    La pin correspondant à la mesure du courant fournit par l'alimentation est la pin 29 (PC2) du connecteur J103.
 
 Pour pouvoir convertir la valeur reçu par l'ADC en valeur de courant se trouvant dans le moteur nous utilisons la formule suivante : $\frac{Valeur ADC} {résolution}*U_{ref}$
+
 Ici, la résolution de l'ADC est de 4096 et $U_{ref}$ vaut 3.3V.
 
 On récupère ensuite cette cette valeure pour la comparé à un offset valant $1.65$ et on divise le tout par la sensibilité du capteur qui est de 50mV par Ampère.
-ce qui nous donne comme équation 
+En prenant R comme résultat de l'équation précédante on obtion : $\frac{R-1.65} {0.05}=$ valeur en courant.
 
 
 ## Mesure de vitesse
@@ -39,4 +40,4 @@ ce qui nous donne comme équation
 
  <p align="center"><img src="https://github.com/JolanTho/2425_ESE_TP_Actionneur_et_automatique_applique/blob/main/Photo_TP/fonction_vitesse_shell.jpg" width="600" /> </p> 
 
-Nous pouvons remarqué que la valeur de la vitesse renvoyé par le moteur est comprise entre -200 et +200 et nous avons bien une valeure de vitesse à 0 pour **alpha=50** quand le moteur est à l'arret.
+Nous pouvons remarqué que la valeur de la vitesse renvoyé par le moteur est comprise entre -200 et +200 et nous avons bien une valeure de vitesse à 0 pour **alpha=50** quand le moteur est à l'arret. Malheuresement nous n'avons pas réussis à faire la conversion en tour par minute à partir de la donné renvoyé par le moteur par manque de temps. 
