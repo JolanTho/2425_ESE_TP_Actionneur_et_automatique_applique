@@ -31,5 +31,6 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
  L'information sur la vitesse est récupéré via la sonde tachimétrique du moteur, puis transmis à la carte via un bus CAN. Le signal passe ensuite dans le composant MAX3097E pour ensuite être envoyé dans le microprocesseur sur les pins PA6 (encodeur A), PA4 (encoder B) et PC8 (encodeur Z). 
  Nous avons ensuite créé une fonction appelé "vitesse" permetant de récupérer la valeure récupéré par le microproceesseur. 
 
- <p align="center"><img src="https://github.com/JolanTho/24-25_ESE_TP_BUS_RESEAUX_WEIDLE_THOMASSET/blob/main/screen_TP/TP3/SALUTSALUT.PNG" width="600" /> </p> 
+ <p align="center"><img src="https://github.com/JolanTho/2425_ESE_TP_Actionneur_et_automatique_applique/blob/main/Photo_TP/fonction_vitesse_shell.jpg" width="600" /> </p> 
 
+Nous pouvons remarqué que la valeur de la vitesse renvoyé par le moteur est comprise entre -200 et +200 et nous avons bien une valeure de vitesse à 0 pour **alpha=50** quand le moteur est à l'arret.
