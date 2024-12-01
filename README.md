@@ -30,3 +30,6 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
  Le conposant qui sert à mesurer la vitesse est le MAX3097E. 
  L'information sur la vitesse est récupéré via la sonde tachimétrique du moteur, puis transmis à la carte via un bus CAN. Le signal passe ensuite dans le composant MAX3097E pour ensuite être envoyé dans le microprocesseur sur les pins PA6 (encodeur A), PA4 (encoder B) et PC8 (encodeur Z). 
  Nous avons ensuite créé une fonction appelé "vitesse" permetant de récupérer la valeure récupéré par le microproceesseur. 
+
+ <p align="center"><img src="https://github.com/JolanTho/24-25_ESE_TP_BUS_RESEAUX_WEIDLE_THOMASSET/blob/main/screen_TP/TP3/SALUTSALUT.PNG" width="600" /> </p> 
+
