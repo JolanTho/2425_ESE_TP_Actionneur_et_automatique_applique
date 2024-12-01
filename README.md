@@ -2,8 +2,9 @@
 
 # TP1
 Lors de ce TP nous devons générer une PWM en complémentaire décalé sur le pont U et V pour pouvoir controler le hacheur lié au moteur. 
-Nous prenons une PWM de fréquence 20kHz à l'aide de la formule suivante :   
-Nous définissons un temps mort de 100ns pour éviter tout court circuit. Ce temps mort a été définit avec la formule et une petite marge : 
+Nous prenons une PWM de fréquence 20kHz à l'aide de la formule suivante : $T_{Timer}=T_{horloge}(PSC+1)(ARR+1)$.
+
+Nous définissons un temps mort de 100ns pour éviter tout court circuit. Ce temps mort a été définit avec la formule et une petite marge : $Dead Time = TurnoffDelay+TurnOff Rising - TurnON$. Avec cette formule et les données de la datasheet nous trouvons un temps mort de 52ns. Nous préferons avoir un peu de marge pour être sûr de ne rien cassé c'est pour cela que nous avons choisis de prendre un temps mort de 100ns.
 
 Après avoir générer la PWM nous utiisons un shell en liaison UART pour pouvoir changer la vitesse du moteur. Nous avons créer la fonction "Speed XXX" qui permet de récupérer la valuer de "XXX" et ainsi changer le rapport cyclique de la PWM.
 Après quelques testes en faisant bien attention à limitér le courant fournit par l'alimentation, nous avons observé lors du changement de consigne que le moteur changeait de vitesse très rapidement ce qui peut engendrer des courants très important dans le moteur et la carte et ainsi cramer la carte de commande. 
