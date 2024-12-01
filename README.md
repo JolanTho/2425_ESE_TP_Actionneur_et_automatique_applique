@@ -21,7 +21,7 @@ Pour cela nous allons utiliser le composant GO10-SME présent sur la carte élec
 
 2) Le capteur renvoie une tension de 50mV pour 1A mesuré.
 
-3) La pins correspondant à la mesure du courant pour la phase U est la pin 27 (PA0) du connecteur J103.
+3) La pins correspondant à la mesure du courant pour la phase U est la pin 27 (PA1) du connecteur J103.
    La pin correspondant à la musre du courant consommé par la phase V est la pin 23 (PB1) du connecteur J104.
    La pin correspondant à la mesure du courant fournit par l'alimentation est la pin 29 (PC2) du connecteur J103.
 
